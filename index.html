@@ -1,0 +1,2814 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <title>Αποστολή: Αόριστος Β΄</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      font-size: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f5;
+      color: #222;
+    }
+
+    .app {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 3rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      height: 60px;
+      width: auto;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      margin: 0.1rem 0;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    .screen {
+      display: none;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1rem 1.25rem 1.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      margin-top: 0.5rem;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.5rem;
+      color: #333;
+    }
+
+    .instruction {
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+      color: #444;
+    }
+
+    .story-box {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      padding: 1rem;
+      background: #fffdf0;
+      border-radius: 10px;
+      border: 2px solid #ffe4a3;
+      margin-bottom: 0.7rem;
+    }
+
+    .info-box {
+      margin-top: 0.3rem;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      background: #eef6ff;
+      border: 1px solid #c0ddff;
+      font-size: 0.95rem;
+      min-height: 2.2rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      background: #e0e0e0;
+      color: #222;
+      margin: 0.25rem;
+      min-width: 130px;
+      touch-action: manipulation;
+    }
+
+    .btn.primary {
+      background: #1976d2;
+      color: #fff;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .nav-row {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .nav-left,
+    .nav-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .verb-aorist {
+      border: none;
+      background: #ffe0e0;
+      border-radius: 999px;
+      padding: 0.2rem 0.7rem;
+      margin: 0 0.1rem;
+      font-size: 1.1rem;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .verb-aorist.selected {
+      background: #ffb3b3;
+      outline: 2px solid #ff7777;
+    }
+
+    /* Αρχική σελίδα */
+    .home-title {
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .home-image-box {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0 0.5rem;
+    }
+
+    .home-image {
+      max-width: 40%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Screen 2 */
+    .columns-2 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .column {
+      flex: 1 1 250px;
+      background: #fafafa;
+      border-radius: 10px;
+      padding: 0.7rem;
+      border: 1px solid #ddd;
+      min-height: 160px;
+    }
+
+    .column h3 {
+      margin-top: 0;
+      font-size: 1.1rem;
+    }
+
+    .drop-column {
+      margin-top: 0.4rem;
+      min-height: 90px;
+      padding: 0.4rem;
+      border-radius: 8px;
+      background: #ffffff;
+      border: 1px dashed #cccccc;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .card-pool {
+      margin-top: 0.3rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .verb-card {
+      border: none;
+      border-radius: 999px;
+      padding: 0.35rem 0.8rem;
+      font-size: 1rem;
+      background: #f0f4ff;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .verb-card.selected {
+      outline: 3px solid #1976d2;
+      background: #d9e7ff;
+    }
+
+    .verb-card.correct {
+      background: #d0ffd6;
+    }
+
+    .verb-card.wrong {
+      background: #ffd6d6;
+    }
+
+    .choice-row {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: flex-start;
+    }
+
+    .btn.choice {
+      flex: 1 1 210px;
+      background: #fff3cd;
+      border-radius: 999px;
+    }
+
+    /* Screen 3 */
+    .bridge-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .bridge-table th,
+    .bridge-table td {
+      border: 1px solid #ddd;
+      padding: 0.4rem 0.5rem;
+      text-align: center;
+    }
+
+    .bridge-table th {
+      background: #f0f0f0;
+    }
+
+    .bridge-row {
+      cursor: pointer;
+    }
+
+    .bridge-row:hover {
+      background: #f9f9f9;
+    }
+
+    .bridge-row.active-row {
+      background: #fff0c2;
+    }
+
+    .modern {
+      font-weight: 500;
+    }
+
+    .ancient {
+      font-family: "Palatino Linotype", "Times New Roman", serif;
+      font-size: 1.05rem;
+    }
+
+    .ancient-verb {
+      font-weight: 600;
+      color: #b22222;
+    }
+
+    /* Screen 4 */
+    .definition-box {
+      background: #eefaf2;
+      border-radius: 10px;
+      border: 1px solid #cbe8d5;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .definition-box p {
+      margin-top: 0;
+    }
+
+    .verb-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .ancient-card {
+      border: none;
+      border-radius: 12px;
+      padding: 0.5rem 0.8rem;
+      font-size: 1rem;
+      background: #f7ecff;
+      cursor: pointer;
+      touch-action: manipulation;
+      font-family: "Palatino Linotype", "Times New Roman", serif;
+    }
+
+    .ancient-card.selected {
+      outline: 3px solid #7b1fa2;
+      background: #edd9ff;
+    }
+
+    .analysis-box {
+      background: #f0f8ff;
+      border-radius: 10px;
+      border: 1px solid #c3ddff;
+      padding: 0.7rem 0.8rem;
+      min-height: 3rem;
+      font-size: 1rem;
+      font-family: "Palatino Linotype", "Times New Roman", serif;
+    }
+
+    .chunks {
+      display: inline-flex;
+      gap: 0.3rem;
+      margin-top: 0.2rem;
+      flex-wrap: wrap;
+    }
+
+    .chunk {
+      padding: 0.1rem 0.4rem;
+      border-radius: 6px;
+      border: 1px solid transparent;
+    }
+
+    .chunk.aug {
+      background: #fff0f0;
+      border-color: #ffb3b3;
+    }
+
+    .chunk.stem {
+      background: #f0fff0;
+      border-color: #b3ffb3;
+    }
+
+    .chunk.end {
+      background: #f0f8ff;
+      border-color: #b3d4ff;
+    }
+
+    .labels {
+      margin-top: 0.35rem;
+      font-size: 0.9rem;
+    }
+
+    .labels span {
+      margin-right: 1.4rem;
+    }
+
+    /* Screen 5 – κλίση */
+    .voice-toggle {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 0.2rem;
+      background: #e3f2fd;
+      margin-bottom: 0.6rem;
+    }
+
+    .voice-btn {
+      border: none;
+      background: transparent;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .voice-btn.active {
+      background: #1976d2;
+      color: #fff;
+    }
+
+    .mood-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.5rem 0 0.7rem;
+    }
+
+    .mood-tab {
+      border-radius: 999px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.9rem;
+      border: 1px solid #b0bec5;
+      background: #eceff1;
+      cursor: pointer;
+    }
+
+    .mood-tab.active {
+      background: #455a64;
+      color: #fff;
+      border-color: #455a64;
+    }
+
+    .conj-note {
+      font-size: 0.9rem;
+      color: #555;
+      margin-bottom: 0.4rem;
+    }
+
+    .conj-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.3rem;
+      font-size: 0.98rem;
+      font-family: "Palatino Linotype", "Times New Roman", serif;
+    }
+
+    .conj-table th,
+    .conj-table td {
+      border: 1px solid #ddd;
+      padding: 0.35rem 0.5rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .conj-table th {
+      background: #f0f0f0;
+    }
+
+    .conj-section {
+      font-family: "Palatino Linotype", "Times New Roman", serif;
+    }
+
+    .conj-small-list {
+      margin-top: 0.3rem;
+      padding-left: 1.1rem;
+    }
+
+    /* Πίνακας ρημάτων (νέα κάρτα) */
+    .verb-table-wrapper {
+      margin-top: 0.5rem;
+      max-height: 420px;
+      overflow: auto;
+      background: #fafafa;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .verb-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: "Palatino Linotype", "Times New Roman", serif;
+      font-size: 0.95rem;
+    }
+
+    .verb-table th,
+    .verb-table td {
+      border: 1px solid #ccc;
+      padding: 0.3rem 0.4rem;
+      text-align: center;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    .verb-table th {
+      background: #f0f0f0;
+      font-weight: 600;
+    }
+
+    .verb-table td:nth-child(1) {
+      font-weight: 600;
+    }
+
+    /* Games common */
+    .game-score {
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* Game 1 */
+    .game1-aorist-display {
+      font-family: "Palatino Linotype", "Times New Roman", serif;
+      font-size: 1.7rem;
+      text-align: center;
+      margin: 0.6rem 0 0.4rem;
+    }
+
+    .game1-choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .btn.segment {
+      min-width: 90px;
+      background: #f0f4ff;
+    }
+
+    /* Game 2 */
+    .game2-columns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.4rem;
+    }
+
+    .game2-col {
+      flex: 1 1 260px;
+      background: #fafafa;
+      border-radius: 10px;
+      padding: 0.7rem;
+      border: 1px solid #ddd;
+    }
+
+    .game2-col h3 {
+      margin-top: 0;
+      font-size: 1.05rem;
+    }
+
+    .game2-list {
+      margin-top: 0.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .game2-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 0.35rem 0.8rem;
+      text-align: left;
+      cursor: pointer;
+      background: #f0f4ff;
+      font-size: 0.98rem;
+      touch-action: manipulation;
+    }
+
+    .game2-btn.present {
+      font-weight: 500;
+    }
+
+    .game2-btn.aorist {
+      font-family: "Palatino Linotype", "Times New Roman", serif;
+    }
+
+    .game2-btn.selected {
+      outline: 3px solid #1976d2;
+      background: #d9e7ff;
+    }
+
+    .game2-btn.matched {
+      background: #d0ffd6;
+      color: #1b5e20;
+    }
+
+    /* Game 3 */
+    .game3-sentence {
+      font-family: "Palatino Linotype", "Times New Roman", serif;
+      font-size: 1.2rem;
+      background: #fffdf0;
+      border-radius: 10px;
+      border: 2px solid #ffe4a3;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .game3-blank {
+      border-bottom: 2px solid #555;
+      min-width: 4rem;
+      display: inline-block;
+      text-align: center;
+      height: 1.2em;
+    }
+
+    /* Quiz */
+    .quiz-question {
+      margin-bottom: 0.8rem;
+      font-size: 1.05rem;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .btn.quiz-option {
+      text-align: left;
+      justify-content: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: #fff3cd;
+    }
+
+    .btn.quiz-option.correct {
+      background: #d0ffd6;
+      color: #1b5e20;
+    }
+
+    .btn.quiz-option.wrong {
+      background: #ffd6d6;
+      color: #b71c1c;
+    }
+
+    .menu-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.6rem;
+    }
+
+    .menu-buttons .btn {
+      flex: 1 1 220px;
+    }
+
+    .current-team {
+      display: inline-block;
+      margin-bottom: 0.4rem;
+      background: #e3f2fd;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+    }
+
+    .team-scores {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+      color: #333;
+    }
+
+    @media (max-width: 768px) {
+      :root {
+        font-size: 16px;
+      }
+      .story-box {
+        font-size: 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="header-inner">
+        <img src="greek logo.png" alt="Λογότυπο" class="logo" />
+        <div>
+          <h1>Αποστολή: Αόριστος Β΄</h1>
+          <p>Από τα Νέα Ελληνικά στον αόριστο β΄ των Αρχαίων Ελληνικών</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- ΑΡΧΙΚΗ ΣΕΛΙΔΑ -->
+    <section id="screen-home" class="screen active">
+      <h2 class="home-title"></h2>
+      <div class="home-image-box">
+        <img src="image.png" alt="Εισαγωγική εικόνα" class="home-image" />
+      </div>
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="goToScreen('screen-1')">
+            Έναρξη ➜
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΟΘΟΝΗ 1 -->
+    <section id="screen-1" class="screen">
+      <h2>1. Θυμόμαστε τον αόριστο στα Νέα Ελληνικά</h2>
+      <p class="instruction">
+        Πάτησε στα ρήματα με ροζ χρώμα για να δεις τι χρόνο δείχνουν.
+      </p>
+
+      <div class="story-box">
+        Χτες το βράδυ εγώ
+        <button
+          class="verb-aorist"
+          data-explanation="Αυτός είναι ο αόριστος του ρήματος «παίζω» στα Νέα Ελληνικά. Δείχνει κάτι που έγινε και τελείωσε στο παρελθόν."
+        >
+          έπαιξα
+        </button>
+        βιντεοπαιχνίδια, μετά
+        <button
+          class="verb-aorist"
+          data-explanation="Αυτός είναι ο αόριστος του ρήματος «τρώω» στα Νέα Ελληνικά. Δείχνει κάτι που έγινε και τελείωσε στο παρελθόν."
+        >
+          έφαγα
+        </button>
+        πίτσα και στο τέλος
+        <button
+          class="verb-aorist"
+          data-explanation="Αυτός είναι ο αόριστος του ρήματος «βλέπω» στα Νέα Ελληνικά. Δείχνει κάτι που έγινε και τελείωσε στο παρελθόν."
+        >
+          είδα
+        </button>
+        μια ταινία.
+      </div>
+
+      <div id="screen1-info" class="info-box">
+        Πάτησε σε ένα ρήμα για εξήγηση.
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="goToScreen('screen-2')">
+            Συνέχεια ➜
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΟΘΟΝΗ 2 -->
+    <section id="screen-2" class="screen">
+      <h2>2. Αόριστοι με -σα και «περίεργοι» αόριστοι</h2>
+      <p class="instruction">
+        Πρώτα διάλεξε μια κάρτα ρήματος. Μετά πάτησε σε ποια κατηγορία
+        ανήκει ο αόριστος.
+      </p>
+
+      <div class="columns-2">
+        <div class="column">
+          <h3>Αόριστοι με -σα στα Νέα Ελληνικά</h3>
+          <div id="col-sa" class="drop-column"></div>
+        </div>
+        <div class="column">
+          <h3>«Περίεργοι» αόριστοι στα Νέα Ελληνικά</h3>
+          <div id="col-weird" class="drop-column"></div>
+        </div>
+      </div>
+
+      <h4>Κάρτες ρημάτων</h4>
+      <div id="verb-pool" class="card-pool">
+        <!-- με -σα -->
+        <button class="verb-card" data-type="sa">παίζω → έπαιξα</button>
+        <button class="verb-card" data-type="sa">διαβάζω → διάβασα</button>
+        <button class="verb-card" data-type="sa">γράφω → έγραψα</button>
+        <!-- «περίεργοι» -->
+        <button class="verb-card" data-type="weird">παίρνω → πήρα</button>
+        <button class="verb-card" data-type="weird">βλέπω → είδα</button>
+        <button class="verb-card" data-type="weird">τρώω → έφαγα</button>
+        <button class="verb-card" data-type="weird">φέρνω → έφερα</button>
+      </div>
+
+      <div class="choice-row">
+        <button class="btn choice" onclick="classifySelected('sa')">
+          Αόριστος με -σα
+        </button>
+        <button class="btn choice" onclick="classifySelected('weird')">
+          «Περίεργος» αόριστος
+        </button>
+      </div>
+
+      <div id="screen2-info" class="info-box">
+        1️⃣ Πάτησε μια κάρτα, 2️⃣ διάλεξε κατηγορία.
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-1')">
+            ⬅ Πίσω
+          </button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="goToScreen('screen-3')">
+            Συνέχεια ➜
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΟΘΟΝΗ 3 -->
+    <section id="screen-3" class="screen">
+      <h2>3. Από τα Νέα Ελληνικά στα Αρχαία Ελληνικά: ίδιες ιδέες, άλλες λέξεις</h2>
+      <p class="instruction">
+        Πάτησε σε μια σειρά για να δεις πώς «μοιάζει» ο αόριστος στα Νέα Ελληνικά
+        και στα Αρχαία Ελληνικά.
+      </p>
+
+      <table class="bridge-table">
+        <thead>
+          <tr>
+            <th>Νέα Ελληνικά</th>
+            <th>Αρχαία Ελληνικά</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="bridge-row"
+            data-explanation="Όπως στα Νέα Ελληνικά λες «παίρνω → πήρα», έτσι στα Αρχαία Ελληνικά λες «λαμβάνω → ἔλαβον». Και τα δύο δείχνουν «παίρνω στο παρελθόν»."
+          >
+            <td class="modern">παίρνω → πήρα</td>
+            <td class="ancient">
+              λαμβάνω → <span class="ancient-verb">ἔλαβον</span>
+            </td>
+          </tr>
+          <tr
+            class="bridge-row"
+            data-explanation="Όπως στα Νέα Ελληνικά λες «τρέχω → έτρεξα», στα Αρχαία Ελληνικά λες «τρέχω → ἔδραμον»."
+          >
+            <td class="modern">τρέχω → έτρεξα</td>
+            <td class="ancient">
+              τρέχω → <span class="ancient-verb">ἔδραμον</span>
+            </td>
+          </tr>
+          <tr
+            class="bridge-row"
+            data-explanation="Όπως στα Νέα Ελληνικά λες «λέω → είπα», στα Αρχαία Ελληνικά λες «λέγω → εἶπον»."
+          >
+            <td class="modern">λέω → είπα</td>
+            <td class="ancient">
+              λέγω → <span class="ancient-verb">εἶπον</span>
+            </td>
+          </tr>
+          <tr
+            class="bridge-row"
+            data-explanation="Όπως στα Νέα Ελληνικά λες «βλέπω → είδα», στα Αρχαία Ελληνικά λες «ὁράω → εἶδον»."
+          >
+            <td class="modern">βλέπω → είδα</td>
+            <td class="ancient">
+              ὁράω → <span class="ancient-verb">εἶδον</span>
+            </td>
+          </tr>
+          <tr
+            class="bridge-row"
+            data-explanation="Όπως στα Νέα Ελληνικά λες «τυχαίνω → έτυχα», στα Αρχαία Ελληνικά λες «τυγχάνω → ἔτυχον»."
+          >
+            <td class="modern">τυχαίνω → έτυχα</td>
+            <td class="ancient">
+              τυγχάνω → <span class="ancient-verb">ἔτυχον</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div id="screen3-info" class="info-box">
+        Πάτησε σε μια σειρά για επεξήγηση.
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-2')">
+            ⬅ Πίσω
+          </button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="goToScreen('screen-4')">
+            Συνέχεια ➜
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΟΘΟΝΗ 4 -->
+    <section id="screen-4" class="screen">
+      <h2>4. Τι είναι ο Αόριστος Β΄;</h2>
+
+      <div class="definition-box">
+        <p>
+          <strong>Αόριστο Β΄</strong> ονομάζουμε κάποιους ειδικούς τύπους
+          του αορίστου στα Αρχαία Ελληνικά που:
+        </p>
+        <ul>
+          <li>δεν σχηματίζονται με -σα,</li>
+          <li>συχνά αλλάζουν το θέμα του ρήματος,</li>
+          <li>χρειάζεται να τους μάθουμε κυρίως απ’ έξω.</li>
+        </ul>
+      </div>
+
+      <p class="instruction">
+        Πάτησε σε έναν αρχαίο τύπο για να δεις από ποια μέρη αποτελείται
+        (αύξηση – θέμα – κατάληξη).
+      </p>
+
+      <div class="verb-grid">
+        <button class="ancient-card" data-aorist="ἔλαβον">
+          λαμβάνω → ἔλαβον
+        </button>
+        <button class="ancient-card" data-aorist="ἔδραμον">
+          τρέχω → ἔδραμον
+        </button>
+        <button class="ancient-card" data-aorist="εἶπον">
+          λέγω → εἶπον
+        </button>
+        <button class="ancient-card" data-aorist="εἶδον">
+          ὁράω → εἶδον
+        </button>
+        <button class="ancient-card" data-aorist="ἔτυχον">
+          τυγχάνω → ἔτυχον
+        </button>
+      </div>
+
+      <div id="analysis-box" class="analysis-box">
+        Πάτησε σε έναν τύπο για ανάλυση: αύξηση – θέμα – κατάληξη.
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-3')">
+            ⬅ Πίσω
+          </button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="goToScreen('screen-5')">
+            Επόμενο: Κλίση Αορίστου Β΄ ➜
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΟΘΟΝΗ 5 – Κλίση Αορίστου Β΄ (βάλλω) -->
+    <section id="screen-5" class="screen">
+      <h2>5. Κλίση του Αορίστου Β΄ (ρήμα <span class="conj-section">βάλλω</span>)</h2>
+      <p class="instruction">
+        Διάλεξε φωνή και έγκλιση για να δεις όλους τους τύπους στον αόριστο β΄, με διαχωρισμό σε αύξηση – θέμα – κατάληξη.
+      </p>
+
+      <div class="voice-toggle">
+        <button class="voice-btn active" data-voice="active">
+          Ενεργητική φωνή
+        </button>
+        <button class="voice-btn" data-voice="middle">
+          Μέση - παθητική φωνή
+        </button>
+      </div>
+
+      <div class="mood-tabs">
+        <button class="mood-tab active" data-mood="indicative">Οριστική</button>
+        <button class="mood-tab" data-mood="subjunctive">Υποτακτική</button>
+        <button class="mood-tab" data-mood="optative">Ευκτική</button>
+        <button class="mood-tab" data-mood="imperative">Προστακτική</button>
+        <button class="mood-tab" data-mood="infinitive">Απαρέμφατο</button>
+        <button class="mood-tab" data-mood="participle">Μετοχή</button>
+      </div>
+
+      <p class="conj-note">
+        Υπόδειγμα από το ρήμα <span class="conj-section">βάλλω</span> (αόριστος β΄:
+        <span class="conj-section">ἔβαλον</span>, <span class="conj-section">ἐβαλόμην</span>).
+      </p>
+
+      <div id="conj-output" class="conj-section">
+        <!-- Γεμίζει δυναμικά από JavaScript -->
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-4')">
+            ⬅ Πίσω
+          </button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="goToScreen('screen-table')">
+            Επόμενο: Πίνακας ρημάτων ➜
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΟΘΟΝΗ 6 – Πίνακας συνηθέστερων ρημάτων -->
+    <section id="screen-table" class="screen">
+      <h2>6. Πίνακας συνηθέστερων ρημάτων με Αόριστο Β΄</h2>
+      <p class="instruction">
+        Χρησιμοποίησε τον πίνακα ως βοήθημα πριν παίξεις τα παιχνίδια. Τα ρήματα είναι σε Αρχαία Ελληνικά.
+      </p>
+
+      <div class="verb-table-wrapper">
+        <table class="verb-table">
+          <thead>
+            <tr>
+              <th>Ρήμα</th>
+              <th>Οριστική</th>
+              <th>Υποτακτική</th>
+              <th>Ευκτική</th>
+              <th>Προστακτική (β΄ ενικ.)</th>
+              <th>Απαρέμφατο</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ἄγω</td>
+              <td>ἤγαγ-ον</td>
+              <td>ἀγάγ-ω</td>
+              <td>ἀγάγ-οιμι</td>
+              <td>ἄγαγ-ε</td>
+              <td>ἀγαγ-εῖν</td>
+            </tr>
+            <tr>
+              <td>ἄγομαι</td>
+              <td>ἠγαγ-όμην</td>
+              <td>ἀγάγ-ωμαι</td>
+              <td>ἀγαγ-οίμην</td>
+              <td>ἀγαγ-οῦ</td>
+              <td>ἀγαγ-έσθαι</td>
+            </tr>
+            <tr>
+              <td>αἱρῶ</td>
+              <td>εἷλον</td>
+              <td>ἕλω</td>
+              <td>ἕλοιμι</td>
+              <td>ἕλε</td>
+              <td>ἑλεῖν</td>
+            </tr>
+            <tr>
+              <td>αἱροῦμαι</td>
+              <td>εἱλόμην</td>
+              <td>ἕλωμαι</td>
+              <td>ἑλοίμην</td>
+              <td>ἑλοῦ</td>
+              <td>ἑλέσθαι</td>
+            </tr>
+            <tr>
+              <td>αἰσθάνομαι</td>
+              <td>ἠσθόμην</td>
+              <td>αἴσθωμαι</td>
+              <td>αἰσθοίμην</td>
+              <td>αἰσθοῦ</td>
+              <td>αἰσθέσθαι</td>
+            </tr>
+            <tr>
+              <td>ἁμαρτάνω</td>
+              <td>ἥμαρτον</td>
+              <td>ἁμάρτω</td>
+              <td>ἁμάρτοιμι</td>
+              <td>ἅμαρτε</td>
+              <td>ἁμαρτεῖν</td>
+            </tr>
+            <tr>
+              <td>ἀνέχομαι</td>
+              <td>ἠν-ε-σχ-όμην</td>
+              <td>ἀνάσχωμαι</td>
+              <td>ἀνασχοίμην</td>
+              <td>ἀνάσχου</td>
+              <td>ἀνασχέσθαι</td>
+            </tr>
+            <tr>
+              <td>ἀπεχθάνομαι</td>
+              <td>ἀπηχθόμην</td>
+              <td>ἀπέχθωμαι</td>
+              <td>ἀπεχθοίμην</td>
+              <td>–</td>
+              <td>ἀπεχθέσθαι</td>
+            </tr>
+            <tr>
+              <td>ἀποθνῄσκω</td>
+              <td>ἀπέθανον</td>
+              <td>ἀποθάνω</td>
+              <td>ἀποθάνοιμι</td>
+              <td>ἀπόθανε</td>
+              <td>ἀποθανεῖν</td>
+            </tr>
+            <tr>
+              <td>ἀπόλυμμαι</td>
+              <td>ἀπωλόμην</td>
+              <td>ἀπόλωμαι</td>
+              <td>ἀπολοίμην</td>
+              <td>ἀπολοῦ</td>
+              <td>ἀπολέσθαι</td>
+            </tr>
+            <tr>
+              <td>ἀφικνοῦμαι</td>
+              <td>ἀφικόμην</td>
+              <td>ἀφίκωμαι</td>
+              <td>ἀφικοίμην</td>
+              <td>ἀφικοῦ</td>
+              <td>ἀφικέσθαι</td>
+            </tr>
+            <tr>
+              <td>βάλλω</td>
+              <td>ἔβαλον</td>
+              <td>βάλω</td>
+              <td>βάλοιμι</td>
+              <td>βάλε</td>
+              <td>βαλεῖν</td>
+            </tr>
+            <tr>
+              <td>βάλλομαι</td>
+              <td>ἐβαλόμην</td>
+              <td>βάλωμαι</td>
+              <td>βαλοίμην</td>
+              <td>βαλοῦ</td>
+              <td>βαλέσθαι</td>
+            </tr>
+            <tr>
+              <td>γίγνομαι</td>
+              <td>ἐγενόμην</td>
+              <td>γένωμαι</td>
+              <td>γενοίμην</td>
+              <td>γενοῦ</td>
+              <td>γενέσθαι</td>
+            </tr>
+            <tr>
+              <td>δάκνω</td>
+              <td>ἔδακον</td>
+              <td>δάκω</td>
+              <td>δάκοιμι</td>
+              <td>δάκε</td>
+              <td>δακεῖν</td>
+            </tr>
+            <tr>
+              <td>ἕπομαι</td>
+              <td>ἑσπόμην</td>
+              <td>σπῶμαι</td>
+              <td>σποίμην</td>
+              <td>σποῦ</td>
+              <td>σπέσθαι</td>
+            </tr>
+
+            <tr>
+              <td>ἔρχομαι</td>
+              <td>ἦλθον</td>
+              <td>ἔλθω</td>
+              <td>ἔλθοιμι</td>
+              <td>ἐλθέ</td>
+              <td>ἐλθεῖν</td>
+            </tr>
+            <tr>
+              <td>ἐρωτῶ</td>
+              <td>ἠρόμην</td>
+              <td>ἔρωμαι</td>
+              <td>ἐροίμην</td>
+              <td>ἐροῦ</td>
+              <td>ἐρέσθαι</td>
+            </tr>
+            <tr>
+              <td>ἐσθίω</td>
+              <td>ἔφαγον</td>
+              <td>φάγω</td>
+              <td>φάγοιμι</td>
+              <td>φάγε</td>
+              <td>φαγεῖν</td>
+            </tr>
+            <tr>
+              <td>εὑρίσκω</td>
+              <td>εὗρον (ηὗρον)</td>
+              <td>εὔρω</td>
+              <td>εὔροιμι</td>
+              <td>εὑρέ</td>
+              <td>εὑρεῖν</td>
+            </tr>
+            <tr>
+              <td>εὑρίσκομαι</td>
+              <td>ηὑ(εὑ)ρόμην</td>
+              <td>εὕρωμαι</td>
+              <td>εὑροίμην</td>
+              <td>εὑροῦ</td>
+              <td>εὑρέσθαι</td>
+            </tr>
+            <tr>
+              <td>ἔχω</td>
+              <td>ἔσχον</td>
+              <td>σχῶ</td>
+              <td>σχοίην</td>
+              <td>σχές</td>
+              <td>σχεῖν</td>
+            </tr>
+            <tr>
+              <td>ἔχομαι</td>
+              <td>ἐσχόμην</td>
+              <td>σχῶμαι</td>
+              <td>σχοίμην</td>
+              <td>σχοῦ</td>
+              <td>σχέσθαι</td>
+            </tr>
+            <tr>
+              <td>θέω-τρέχω</td>
+              <td>ἔδραμον</td>
+              <td>δράμω</td>
+              <td>δράμοιμι</td>
+              <td>δράμε</td>
+              <td>δραμεῖν</td>
+            </tr>
+            <tr>
+              <td>θνῄσκω</td>
+              <td>ἔθανον</td>
+              <td>θάνω</td>
+              <td>θάνοιμι</td>
+              <td>θάνε</td>
+              <td>θανεῖν</td>
+            </tr>
+            <tr>
+              <td>ἱκνοῦμαι</td>
+              <td>ἀφ-ικόμην</td>
+              <td>ἀφίκωμαι</td>
+              <td>ἀφικοίμην</td>
+              <td>ἀφικοῦ</td>
+              <td>ἀφικέσθαι</td>
+            </tr>
+            <tr>
+              <td>κάμνω</td>
+              <td>ἔκαμον</td>
+              <td>κάμω</td>
+              <td>κάμοιμι</td>
+              <td>κάμε</td>
+              <td>καμεῖν</td>
+            </tr>
+            <tr>
+              <td>κτείνω</td>
+              <td>ἔκτανον</td>
+              <td>κτάνω</td>
+              <td>κτάνοιμι</td>
+              <td>κτάνε</td>
+              <td>κτανεῖν</td>
+            </tr>
+            <tr>
+              <td>λαγχάνω</td>
+              <td>ἔλαχον</td>
+              <td>λάχω</td>
+              <td>λάχοιμι</td>
+              <td>λάχε</td>
+              <td>λαχεῖν</td>
+            </tr>
+            <tr>
+              <td>λαμβάνω</td>
+              <td>ἔλαβον</td>
+              <td>λάβω</td>
+              <td>λάβοιμι</td>
+              <td>λαβέ</td>
+              <td>λαβεῖν</td>
+            </tr>
+            <tr>
+              <td>λανθάνω</td>
+              <td>ἔλαθον</td>
+              <td>λάθω</td>
+              <td>λάθοιμι</td>
+              <td>λάθε</td>
+              <td>λαθεῖν</td>
+            </tr>
+            <tr>
+              <td>λέγω</td>
+              <td>εἶπον</td>
+              <td>εἴπω</td>
+              <td>εἴποιμι</td>
+              <td>εἰπέ</td>
+              <td>εἰπεῖν</td>
+            </tr>
+            <tr>
+              <td>λείπω</td>
+              <td>ἔλιπον</td>
+              <td>λίπω</td>
+              <td>λίποιμι</td>
+              <td>λίπε</td>
+              <td>λιπεῖν</td>
+            </tr>
+            <tr>
+              <td>λείπομαι</td>
+              <td>ἐλιπόμην</td>
+              <td>λίπωμαι</td>
+              <td>λιποίμην</td>
+              <td>λιποῦ</td>
+              <td>λιπέσθαι</td>
+            </tr>
+
+            <tr>
+              <td>μανθάνω</td>
+              <td>ἔμαθον</td>
+              <td>μάθω</td>
+              <td>μάθοιμι</td>
+              <td>μάθε</td>
+              <td>μαθεῖν</td>
+            </tr>
+            <tr>
+              <td>ὄλλυμαι</td>
+              <td>ἀπωλόμην</td>
+              <td>ἀπόλωμαι</td>
+              <td>ἀπολοίμην</td>
+              <td>ἀπολοῦ</td>
+              <td>ἀπολέσθαι</td>
+            </tr>
+            <tr>
+              <td>ὁρῶ</td>
+              <td>εἶδον</td>
+              <td>ἴδω</td>
+              <td>ἴδοιμι</td>
+              <td>ἰδέ</td>
+              <td>ἰδεῖν</td>
+            </tr>
+            <tr>
+              <td>ὁρῶμαι</td>
+              <td>εἰδόμην</td>
+              <td>ἴδωμαι</td>
+              <td>ἰδοίμην</td>
+              <td>ἰδοῦ</td>
+              <td>ἰδέσθαι</td>
+            </tr>
+            <tr>
+              <td>ὀφλισκάνω</td>
+              <td>ὦφλον</td>
+              <td>ὄφλω</td>
+              <td>ὄφλοιμι</td>
+              <td>ὄφλε</td>
+              <td>ὀφλεῖν</td>
+            </tr>
+            <tr>
+              <td>πάσχω</td>
+              <td>ἔπαθον</td>
+              <td>πάθω</td>
+              <td>πάθοιμι</td>
+              <td>πάθε</td>
+              <td>παθεῖν</td>
+            </tr>
+            <tr>
+              <td>πείθω</td>
+              <td>ἔπιθον</td>
+              <td>πίθω</td>
+              <td>πίθοιμι</td>
+              <td>πίθε</td>
+              <td>πιθεῖν</td>
+            </tr>
+            <tr>
+              <td>πείθομαι</td>
+              <td>ἐπιθόμην</td>
+              <td>πίθωμαι</td>
+              <td>πιθοίμην</td>
+              <td>πιθοῦ</td>
+              <td>πιθέσθαι</td>
+            </tr>
+            <tr>
+              <td>πίνω</td>
+              <td>ἔπιον</td>
+              <td>πίω</td>
+              <td>πίοιμι</td>
+              <td>πίε καὶ πίθι</td>
+              <td>πιεῖν</td>
+            </tr>
+            <tr>
+              <td>πίπτω</td>
+              <td>ἔπεσον</td>
+              <td>πέσω</td>
+              <td>πέσοιμι</td>
+              <td>πέσε</td>
+              <td>πεσεῖν</td>
+            </tr>
+            <tr>
+              <td>πυνθάνομαι</td>
+              <td>ἐπυθόμην</td>
+              <td>πύθωμαι</td>
+              <td>πυθοίμην</td>
+              <td>πυθοῦ</td>
+              <td>πυθέσθαι</td>
+            </tr>
+            <tr>
+              <td>τέμνω</td>
+              <td>ἔτεμον</td>
+              <td>τέμω</td>
+              <td>τέμοιμι</td>
+              <td>τέμε</td>
+              <td>τεμεῖν</td>
+            </tr>
+            <tr>
+              <td>τίκτω</td>
+              <td>ἔτεκον</td>
+              <td>τέκω</td>
+              <td>τέκοιμι</td>
+              <td>τέκε</td>
+              <td>τεκεῖν</td>
+            </tr>
+            <tr>
+              <td>τρέπω</td>
+              <td>ἔτραπον</td>
+              <td>τράπω</td>
+              <td>τράποιμι</td>
+              <td>τράπε</td>
+              <td>τραπεῖν</td>
+            </tr>
+            <tr>
+              <td>τρέπομαι</td>
+              <td>ἐτραπόμην</td>
+              <td>τράπωμαι</td>
+              <td>τραποίμην</td>
+              <td>τραποῦ</td>
+              <td>τραπέσθαι</td>
+            </tr>
+            <tr>
+              <td>τυγχάνω</td>
+              <td>ἔτυχον</td>
+              <td>τύχω</td>
+              <td>τύχοιμι</td>
+              <td>τύχε</td>
+              <td>τυχεῖν</td>
+            </tr>
+            <tr>
+              <td>τύπτω</td>
+              <td>ἔτυπον</td>
+              <td>τύπω</td>
+              <td>τύπομι</td>
+              <td>τύπε</td>
+              <td>τυπεῖν</td>
+            </tr>
+            <tr>
+              <td>τρέχω</td>
+              <td>ἔδραμον</td>
+              <td>δράμω</td>
+              <td>δράμοιμι</td>
+              <td>δράμε</td>
+              <td>δραμεῖν</td>
+            </tr>
+
+            <tr>
+              <td>ὑπισχνοῦμαι</td>
+              <td>ὑπ-ε-σχόμην</td>
+              <td>ὑπόσχωμαι</td>
+              <td>ὑποσχοίμην</td>
+              <td>ὑπόσχου</td>
+              <td>ὑπόσχεσθαι</td>
+            </tr>
+            <tr>
+              <td>φέρω</td>
+              <td>ἤνεγκον</td>
+              <td>ἐνέγκω</td>
+              <td>ἐνέγκοιμι</td>
+              <td>ἔνεγκε</td>
+              <td>ἐνεγκεῖν</td>
+            </tr>
+            <tr>
+              <td>φεύγω</td>
+              <td>ἔφυγον</td>
+              <td>φύγω</td>
+              <td>φύγοιμι</td>
+              <td>φύγε</td>
+              <td>φυγεῖν</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-5')">
+            ⬅ Πίσω
+          </button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="goToScreen('screen-menu')">
+            Πάμε στα παιχνίδια! 🎮
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΜΕΝΟΥ ΠΑΙΧΝΙΔΙΩΝ -->
+    <section id="screen-menu" class="screen">
+      <h2>Παιχνίδια εξάσκησης στον Αόριστο Β΄</h2>
+      <p class="instruction">
+        Διάλεξε παιχνίδι. Μπορείς να τα κάνεις με τη σειρά ή να διαλέξεις όποιο θέλεις.
+      </p>
+
+      <div class="menu-buttons">
+        <button class="btn" onclick="goToScreen('screen-game1')">🎯 Παιχνίδι 1: Βρες το θέμα</button>
+        <button class="btn" onclick="goToScreen('screen-game2')">🧩 Παιχνίδι 2: Ταίριαξε τα ζευγάρια</button>
+        <button class="btn" onclick="goToScreen('screen-game3')">📜 Παιχνίδι 3: Ρήματα σε κείμενο</button>
+        <button class="btn" onclick="goToScreen('screen-quiz')">🏆 Τελικό κουίζ / Μάχη ομάδων</button>
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-table')">
+            ⬅ Πίσω
+          </button>
+        </div>
+        <div class="nav-right"></div>
+      </div>
+    </section>
+
+    <!-- ΠΑΙΧΝΙΔΙ 1: Βρες το θέμα -->
+    <section id="screen-game1" class="screen">
+      <h2>🎯 Παιχνίδι 1: Βρες το θέμα</h2>
+      <p class="instruction">
+        Κοίτα τον τύπο του αορίστου β΄ στα Αρχαία Ελληνικά και διάλεξε ποιο κομμάτι είναι το θέμα του ρήματος.
+      </p>
+
+      <div id="game1-aorist" class="game1-aorist-display"></div>
+
+      <div id="game1-choices" class="game1-choice-row">
+        <!-- Δημιουργούνται δυναμικά -->
+      </div>
+
+      <div id="game1-feedback" class="info-box">
+        Πάτησε σε ένα από τα κουμπιά για να διαλέξεις το θέμα.
+      </div>
+
+      <div id="game1-score" class="game-score">
+        Σωστά: 0 / 0
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-menu')">
+            ⬅ Πίσω στο μενού
+          </button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="newGame1Question()">
+            Επόμενη λέξη ⟳
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΠΑΙΧΝΙΔΙ 2: Ταίριαξε τα ζευγάρια -->
+    <section id="screen-game2" class="screen">
+      <h2>🧩 Παιχνίδι 2: Ταίριαξε τα ζευγάρια</h2>
+      <p class="instruction">
+        Διάλεξε ένα ρήμα σε ενεστώτα και μετά τον σωστό τύπο αορίστου β΄ στα Αρχαία Ελληνικά. Αν ταιριάζουν, μένουν πράσινα!
+      </p>
+
+      <div class="game2-columns">
+        <div class="game2-col">
+          <h3>Ενεστώτας (Νέα Ελληνικά / Αρχαία Ελληνικά)</h3>
+          <div id="game2-left" class="game2-list"></div>
+        </div>
+        <div class="game2-col">
+          <h3>Αόριστος Β΄ (Αρχαία Ελληνικά)</h3>
+          <div id="game2-right" class="game2-list"></div>
+        </div>
+      </div>
+
+      <div id="game2-feedback" class="info-box">
+        1️⃣ Πάτησε έναν τύπο στον ενεστώτα, 2️⃣ διάλεξε τον αντίστοιχο αόριστο β΄.
+      </div>
+
+      <div id="game2-score" class="game-score">
+        Σωστά ζευγάρια: 0 / 0
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-menu')">
+            ⬅ Πίσω στο μενού
+          </button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="initGame2()">
+            Νέο παιχνίδι ⟳
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΠΑΙΧΝΙΔΙ 3: Ρήματα σε κείμενο -->
+    <section id="screen-game3" class="screen">
+      <h2>📜 Παιχνίδι 3: Ρήματα σε κείμενο</h2>
+      <p class="instruction">
+        Διάλεξε τον σωστό τύπο αορίστου β΄ στα Αρχαία Ελληνικά για να συμπληρώσεις την πρόταση.
+      </p>
+
+      <div id="game3-sentence" class="game3-sentence">
+        <!-- Γεμίζει δυναμικά -->
+      </div>
+
+      <div id="game3-options" class="choice-row">
+        <!-- Επιλογές -->
+      </div>
+
+      <div id="game3-feedback" class="info-box">
+        Πάτησε σε μία από τις επιλογές.
+      </div>
+
+      <div id="game3-score" class="game-score">
+        Σωστές απαντήσεις: 0 / 0
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-menu')">
+            ⬅ Πίσω στο μενού
+          </button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="nextGame3Question()">
+            Επόμενη πρόταση ➜
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ΤΕΛΙΚΟ ΚΟΥΙΖ -->
+    <section id="screen-quiz" class="screen">
+      <h2>🏆 Τελικό κουίζ / Μάχη ομάδων</h2>
+      <p class="instruction">
+        Υπάρχουν 40 ερωτήσεις με ρήματα σε αόριστο β΄. Κάθε ερώτηση πηγαίνει αυτόματα σε μία ομάδα:
+        1 → Ομάδα Α, 2 → Ομάδα Β, 3 → Ομάδα Γ, 4 → Ομάδα Δ, και μετά ξανά από την αρχή.
+      </p>
+
+      <div class="current-team">
+        Τώρα απαντά: <span id="current-team-label">Ομάδα Α</span>
+      </div>
+
+      <div class="team-scores">
+        <div id="teamA-score">Ομάδα Α: 0 σωστές</div>
+        <div id="teamB-score">Ομάδα Β: 0 σωστές</div>
+        <div id="teamC-score">Ομάδα Γ: 0 σωστές</div>
+        <div id="teamD-score">Ομάδα Δ: 0 σωστές</div>
+      </div>
+
+      <div id="quiz-question" class="quiz-question"></div>
+
+      <div id="quiz-options" class="quiz-options">
+        <!-- Επιλογές -->
+      </div>
+
+      <div id="quiz-feedback" class="info-box">
+        Πάτησε σε μια επιλογή για να απαντήσεις.
+      </div>
+
+      <div id="quiz-score" class="game-score">
+        Σωστές απαντήσεις συνολικά: 0 / 0
+      </div>
+
+      <div class="nav-row">
+        <div class="nav-left">
+          <button class="btn" onclick="goToScreen('screen-home')">🏠 Αρχική Σελίδα</button>
+          <button class="btn" onclick="goToScreen('screen-menu')">
+            ⬅ Πίσω στο μενού
+          </button>
+        </div>
+        <div class="nav-right">
+          <button class="btn primary" onclick="nextQuizQuestion()">
+            Επόμενη ερώτηση ➜
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Εναλλαγή οθονών
+    function goToScreen(id) {
+      document.querySelectorAll(".screen").forEach((s) => {
+        s.classList.remove("active");
+      });
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add("active");
+        window.scrollTo(0, 0);
+      }
+
+      if (id === "screen-game1") {
+        initGame1();
+      } else if (id === "screen-game2") {
+        initGame2();
+      } else if (id === "screen-game3") {
+        initGame3();
+      } else if (id === "screen-quiz") {
+        initQuiz();
+      }
+    }
+
+    // ΟΘΟΝΗ 1 – κλικ στα ρήματα αορίστου στα Νέα Ελληνικά
+    const info1 = document.getElementById("screen1-info");
+    document.querySelectorAll(".verb-aorist").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".verb-aorist").forEach((b) =>
+          b.classList.remove("selected")
+        );
+        btn.classList.add("selected");
+        info1.textContent = btn.dataset.explanation || "";
+      });
+    });
+
+    // ΟΘΟΝΗ 2 – επιλογή κάρτας & κατηγορίας
+    let selectedCard = null;
+    const info2 = document.getElementById("screen2-info");
+    document.querySelectorAll(".verb-card").forEach((card) => {
+      card.addEventListener("click", () => {
+        document
+          .querySelectorAll(".verb-card")
+          .forEach((c) => c.classList.remove("selected"));
+        card.classList.add("selected");
+        selectedCard = card;
+        info2.textContent =
+          "Τώρα διάλεξε αν είναι «αόριστος με -σα» ή «περίεργος» αόριστος.";
+      });
+    });
+
+    function classifySelected(targetType) {
+      if (!selectedCard) {
+        info2.textContent = "Πρώτα πάτησε μια κάρτα ρήματος.";
+        return;
+      }
+
+      const colSa = document.getElementById("col-sa");
+      const colWeird = document.getElementById("col-weird");
+      const correctType = selectedCard.dataset.type;
+
+      if (targetType === correctType) {
+        selectedCard.classList.remove("wrong");
+        selectedCard.classList.add("correct");
+        info2.textContent =
+          "Σωστά! Ο αόριστος αυτού του ρήματος ανήκει σε αυτή την κατηγορία.";
+        if (targetType === "sa") {
+          colSa.appendChild(selectedCard);
+        } else {
+          colWeird.appendChild(selectedCard);
+        }
+      } else {
+        selectedCard.classList.remove("correct");
+        selectedCard.classList.add("wrong");
+        info2.textContent =
+          "Λάθος… Δες ξανά τον τύπο του αορίστου και προσπάθησε πάλι.";
+      }
+
+      selectedCard.classList.remove("selected");
+      selectedCard = null;
+    }
+
+    // ΟΘΟΝΗ 3 – γέφυρα Νέα Ελληνικά / Αρχαία Ελληνικά
+    const info3 = document.getElementById("screen3-info");
+    document.querySelectorAll(".bridge-row").forEach((row) => {
+      row.addEventListener("click", () => {
+        document
+          .querySelectorAll(".bridge-row")
+          .forEach((r) => r.classList.remove("active-row"));
+        row.classList.add("active-row");
+        const explanation = row.dataset.explanation || "";
+        info3.textContent = explanation;
+      });
+    });
+
+    // ΟΘΟΝΗ 4 – ανάλυση αρχαίων τύπων (αύξηση – θέμα – κατάληξη)
+    const analysisBox = document.getElementById("analysis-box");
+    const analysisData = {
+      "ἔλαβον": { augmentation: "ἔ", stem: "λαβ", ending: "ον" },
+      "ἔδραμον": { augmentation: "ἔ", stem: "δραμ", ending: "ον" },
+      "εἶπον": { augmentation: "—", stem: "εἶπ", ending: "ον" },
+      "εἶδον": { augmentation: "—", stem: "εἶδ", ending: "ον" },
+      "ἔτυχον": { augmentation: "ἔ", stem: "τυχ", ending: "ον" },
+    };
+
+    document.querySelectorAll(".ancient-card").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document
+          .querySelectorAll(".ancient-card")
+          .forEach((b) => b.classList.remove("selected"));
+        btn.classList.add("selected");
+
+        const aorist = btn.dataset.aorist;
+        const data = analysisData[aorist];
+        if (!data) {
+          analysisBox.textContent =
+            "Δεν βρέθηκαν δεδομένα ανάλυσης για αυτόν τον τύπο.";
+          return;
+        }
+
+        analysisBox.innerHTML = `
+          <p><strong>${aorist}</strong></p>
+          <p class="chunks">
+            <span class="chunk aug">${data.augmentation}</span>
+            <span class="chunk stem">${data.stem}</span>
+            <span class="chunk end">${data.ending}</span>
+          </p>
+          <p class="labels">
+            <span>αύξηση</span>
+            <span>θέμα</span>
+            <span>κατάληξη</span>
+          </p>
+        `;
+      });
+    });
+
+    // ΟΘΟΝΗ 5 – Κλίση Αορίστου Β΄ (βάλλω) με αύξηση–θέμα–κατάληξη
+    const conjOutput = document.getElementById("conj-output");
+    const voiceButtons = document.querySelectorAll(".voice-btn");
+    const moodTabs = document.querySelectorAll(".mood-tab");
+
+    let currentVoice = "active";
+    let currentMood = "indicative";
+
+    const conjugation = {
+      active: {
+        indicative: [
+          ["1ο ενικό", "ἔβαλον"],
+          ["2ο ενικό", "ἔβαλες"],
+          ["3ο ενικό", "ἔβαλε"],
+          ["1ο πληθυντικό", "ἐβάλομεν"],
+          ["2ο πληθυντικό", "ἐβάλετε"],
+          ["3ο πληθυντικό", "ἔβαλον"],
+        ],
+        subjunctive: [
+          ["1ο ενικό", "βάλω"],
+          ["2ο ενικό", "βάλῃς"],
+          ["3ο ενικό", "βάλῃ"],
+          ["1ο πληθυντικό", "βάλωμεν"],
+          ["2ο πληθυντικό", "βάλῃτε"],
+          ["3ο πληθυντικό", "βάλωσιν"],
+        ],
+        optative: [
+          ["1ο ενικό", "βάλοιμι"],
+          ["2ο ενικό", "βάλοις"],
+          ["3ο ενικό", "βάλοι"],
+          ["1ο πληθυντικό", "βάλοιμεν"],
+          ["2ο πληθυντικό", "βάλοιτε"],
+          ["3ο πληθυντικό", "βάλοιεν"],
+        ],
+        imperative: [
+          ["2ο ενικό", "βάλε"],
+          ["3ο ενικό", "βαλέτω"],
+          ["2ο πληθυντικό", "βάλετε"],
+          ["3ο πληθυντικό", "βαλόντων"],
+        ],
+        infinitive: ["βαλεῖν"],
+        participle: ["βαλών", "βαλοῦσα", "βαλόν"],
+      },
+      middle: {
+        indicative: [
+          ["1ο ενικό", "ἐβαλόμην"],
+          ["2ο ενικό", "ἐβάλου"],
+          ["3ο ενικό", "ἐβάλετο"],
+          ["1ο πληθυντικό", "ἐβαλόμεθα"],
+          ["2ο πληθυντικό", "ἐβάλεσθε"],
+          ["3ο πληθυντικό", "ἐβάλοντο"],
+        ],
+        subjunctive: [
+          ["1ο ενικό", "βάλωμαι"],
+          ["2ο ενικό", "βάλῃ"],
+          ["3ο ενικό", "βάλῃται"],
+          ["1ο πληθυντικό", "βαλώμεθα"],
+          ["2ο πληθυντικό", "βάλῃσθε"],
+          ["3ο πληθυντικό", "βάλωνται"],
+        ],
+        optative: [
+          ["1ο ενικό", "βαλοίμην"],
+          ["2ο ενικό", "βάλοιο"],
+          ["3ο ενικό", "βάλοιτο"],
+          ["1ο πληθυντικό", "βαλοίμεθα"],
+          ["2ο πληθυντικό", "βάλοισθε"],
+          ["3ο πληθυντικό", "βαλοῖντο"],
+        ],
+        imperative: [
+          ["2ο ενικό", "βαλοῦ"],
+          ["3ο ενικό", "βαλέσθω"],
+          ["2ο πληθυντικό", "βάλεσθε"],
+          ["3ο πληθυντικό", "βαλέσθων"],
+        ],
+        infinitive: ["βαλέσθαι"],
+        participle: ["βαλόμενος", "βαλομένη", "βαλόμενον"],
+      },
+    };
+
+    const formParts = {
+      // Ενεργητική - οριστική
+      "ἔβαλον": { aug: "ἔ", stem: "βαλ", end: "ον" },
+      "ἔβαλες": { aug: "ἔ", stem: "βαλ", end: "ες" },
+      "ἔβαλε": { aug: "ἔ", stem: "βαλ", end: "ε" },
+      "ἐβάλομεν": { aug: "ἐ", stem: "βαλ", end: "ομεν" },
+      "ἐβάλετε": { aug: "ἐ", stem: "βαλ", end: "ετε" },
+
+      // Ενεργητική - υποτακτική
+      "βάλω": { aug: "—", stem: "βάλ", end: "ω" },
+      "βάλῃς": { aug: "—", stem: "βάλ", end: "ῃς" },
+      "βάλῃ": { aug: "—", stem: "βάλ", end: "ῃ" },
+      "βάλωμεν": { aug: "—", stem: "βάλ", end: "ωμεν" },
+      "βάλῃτε": { aug: "—", stem: "βάλ", end: "ῃτε" },
+      "βάλωσιν": { aug: "—", stem: "βάλ", end: "ωσιν" },
+
+      // Ενεργητική - ευκτική
+      "βάλοιμι": { aug: "—", stem: "βαλ", end: "οίμι" },
+      "βάλοις": { aug: "—", stem: "βαλ", end: "οῖς" },
+      "βάλοι": { aug: "—", stem: "βαλ", end: "οί" },
+      "βάλοιμεν": { aug: "—", stem: "βαλ", end: "οίμεν" },
+      "βάλοιτε": { aug: "—", stem: "βαλ", end: "οῖτε" },
+      "βάλοιεν": { aug: "—", stem: "βαλ", end: "οῖεν" },
+
+      // Ενεργητική - προστακτική
+      "βάλε": { aug: "—", stem: "βαλ", end: "ε" },
+      "βαλέτω": { aug: "—", stem: "βαλ", end: "έτω" },
+      "βαλόντων": { aug: "—", stem: "βαλ", end: "όντων" },
+
+      // Ενεργητική - απαρέμφατο
+      "βαλεῖν": { aug: "—", stem: "βαλ", end: "εῖν" },
+
+      // Ενεργητική - μετοχή
+      "βαλών": { aug: "—", stem: "βαλ", end: "ών" },
+      "βαλοῦσα": { aug: "—", stem: "βαλ", end: "οῦσα" },
+      "βαλόν": { aug: "—", stem: "βαλ", end: "όν" },
+
+      // Μέση - οριστική
+      "ἐβαλόμην": { aug: "ἐ", stem: "βαλ", end: "όμην" },
+      "ἐβάλου": { aug: "ἐ", stem: "βαλ", end: "ου" },
+      "ἐβάλετο": { aug: "ἐ", stem: "βαλ", end: "ετο" },
+      "ἐβαλόμεθα": { aug: "ἐ", stem: "βαλ", end: "όμεθα" },
+      "ἐβάλεσθε": { aug: "ἐ", stem: "βαλ", end: "εσθε" },
+      "ἐβάλοντο": { aug: "ἐ", stem: "βαλ", end: "οντο" },
+
+      // Μέση - υποτακτική
+      "βάλωμαι": { aug: "—", stem: "βάλ", end: "ωμαι" },
+      "βάλῃ": { aug: "—", stem: "βάλ", end: "ῃ" },
+      "βάλῃται": { aug: "—", stem: "βάλ", end: "ῃται" },
+      "βαλώμεθα": { aug: "—", stem: "βαλ", end: "ώμεθα" },
+      "βάλῃσθε": { aug: "—", stem: "βάλ", end: "ῃσθε" },
+      "βάλωνται": { aug: "—", stem: "βάλ", end: "ωνται" },
+
+      // Μέση - ευκτική
+      "βαλοίμην": { aug: "—", stem: "βαλ", end: "οίμην" },
+      "βάλοιο": { aug: "—", stem: "βαλ", end: "οιο" },
+      "βάλοιτο": { aug: "—", stem: "βαλ", end: "οιτο" },
+      "βαλοίμεθα": { aug: "—", stem: "βαλ", end: "οίμεθα" },
+      "βάλοισθε": { aug: "—", stem: "βαλ", end: "οισθε" },
+      "βαλοῖντο": { aug: "—", stem: "βαλ", end: "οῖντο" },
+
+      // Μέση - προστακτική
+      "βαλοῦ": { aug: "—", stem: "βαλ", end: "οῦ" },
+      "βαλέσθω": { aug: "—", stem: "βαλ", end: "έσθω" },
+      "βάλεσθε": { aug: "—", stem: "βαλ", end: "εσθε" },
+      "βαλέσθων": { aug: "—", stem: "βαλ", end: "έσθων" },
+
+      // Μέση - απαρέμφατο
+      "βαλέσθαι": { aug: "—", stem: "βαλ", end: "έσθαι" },
+
+      // Μέση - μετοχή
+      "βαλόμενος": { aug: "—", stem: "βαλ", end: "όμενος" },
+      "βαλομένη": { aug: "—", stem: "βαλ", end: "ομένη" },
+      "βαλόμενον": { aug: "—", stem: "βαλ", end: "όμενον" },
+    };
+
+    function renderConjugation() {
+      const data = conjugation[currentVoice][currentMood];
+
+      if (!data) {
+        conjOutput.textContent =
+          "Δεν υπάρχουν διαθέσιμοι τύποι για αυτή τη φωνή και έγκλιση.";
+        return;
+      }
+
+      if (
+        currentMood === "indicative" ||
+        currentMood === "subjunctive" ||
+        currentMood === "optative" ||
+        currentMood === "imperative"
+      ) {
+        let rows = data
+          .map(([person, form]) => {
+            const seg = formParts[form] || {
+              aug: "—",
+              stem: form,
+              end: "",
+            };
+            return `
+              <tr>
+                <td>${person}</td>
+                <td>
+                  <div><strong>${form}</strong></div>
+                  <div class="chunks">
+                    <span class="chunk aug">${seg.aug}</span>
+                    <span class="chunk stem">${seg.stem}</span>
+                    <span class="chunk end">${seg.end}</span>
+                  </div>
+                </td>
+              </tr>
+            `;
+          })
+          .join("");
+        conjOutput.innerHTML = `
+          <table class="conj-table">
+            <thead>
+              <tr>
+                <th>Πρόσωπο</th>
+                <th>Τύπος (αύξηση – θέμα – κατάληξη)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows}
+            </tbody>
+          </table>
+        `;
+      } else if (currentMood === "infinitive") {
+        const form = data[0];
+        const seg = formParts[form] || { aug: "—", stem: form, end: "" };
+        conjOutput.innerHTML = `
+          <div>
+            <strong>Απαρέμφατο:</strong>
+            <ul class="conj-small-list">
+              <li>
+                <div><strong>${form}</strong></div>
+                <div class="chunks">
+                  <span class="chunk aug">${seg.aug}</span>
+                  <span class="chunk stem">${seg.stem}</span>
+                  <span class="chunk end">${seg.end}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        `;
+      } else if (currentMood === "participle") {
+        const [m, f, n] = data;
+        const segM = formParts[m] || { aug: "—", stem: m, end: "" };
+        const segF = formParts[f] || { aug: "—", stem: f, end: "" };
+        const segN = formParts[n] || { aug: "—", stem: n, end: "" };
+        conjOutput.innerHTML = `
+          <div>
+            <strong>Μετοχή:</strong>
+            <ul class="conj-small-list">
+              <li>
+                ὁ:
+                <div><strong>${m}</strong></div>
+                <div class="chunks">
+                  <span class="chunk aug">${segM.aug}</span>
+                  <span class="chunk stem">${segM.stem}</span>
+                  <span class="chunk end">${segM.end}</span>
+                </div>
+              </li>
+              <li>
+                ἡ:
+                <div><strong>${f}</strong></div>
+                <div class="chunks">
+                  <span class="chunk aug">${segF.aug}</span>
+                  <span class="chunk stem">${segF.stem}</span>
+                  <span class="chunk end">${segF.end}</span>
+                </div>
+              </li>
+              <li>
+                τό:
+                <div><strong>${n}</strong></div>
+                <div class="chunks">
+                  <span class="chunk aug">${segN.aug}</span>
+                  <span class="chunk stem">${segN.stem}</span>
+                  <span class="chunk end">${segN.end}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        `;
+      }
+    }
+
+    voiceButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        voiceButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        currentVoice = btn.dataset.voice || "active";
+        renderConjugation();
+      });
+    });
+
+    moodTabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        moodTabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+        currentMood = tab.dataset.mood || "indicative";
+        renderConjugation();
+      });
+    });
+
+    // αρχικό render της οριστικής ενεργητικής
+    renderConjugation();
+
+    // ΠΑΙΧΝΙΔΙ 1 – Βρες το θέμα
+    const game1Items = [
+      { aorist: "ἔλαβον", augmentation: "ἔ", stem: "λαβ", ending: "ον" },
+      { aorist: "ἔδραμον", augmentation: "ἔ", stem: "δραμ", ending: "ον" },
+      { aorist: "ἔτυχον", augmentation: "ἔ", stem: "τυχ", ending: "ον" },
+      { aorist: "ἔβαλον", augmentation: "ἔ", stem: "βαλ", ending: "ον" },
+      { aorist: "ἔλαθον", augmentation: "ἔ", stem: "λαθ", ending: "ον" },
+      { aorist: "εἶπον", augmentation: "—", stem: "εἶπ", ending: "ον" },
+      { aorist: "εἶδον", augmentation: "—", stem: "εἶδ", ending: "ον" },
+      { aorist: "ἔπεσον", augmentation: "ἔ", stem: "πεσ", ending: "ον" },
+    ];
+
+    let game1Score = 0;
+    let game1Total = 0;
+
+    function shuffleArray(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function updateGame1Score() {
+      const scoreEl = document.getElementById("game1-score");
+      scoreEl.textContent = `Σωστά: ${game1Score} / ${game1Total}`;
+    }
+
+    function initGame1() {
+      game1Score = 0;
+      game1Total = 0;
+      document.getElementById("game1-feedback").textContent =
+        "Πάτησε σε ένα από τα κουμπιά για να διαλέξεις το θέμα.";
+      updateGame1Score();
+      newGame1Question();
+    }
+
+    function newGame1Question() {
+      const aoristEl = document.getElementById("game1-aorist");
+      const choicesEl = document.getElementById("game1-choices");
+      const feedbackEl = document.getElementById("game1-feedback");
+
+      const item =
+        game1Items[Math.floor(Math.random() * game1Items.length)];
+
+      aoristEl.textContent = item.aorist;
+      feedbackEl.textContent =
+        "Ποιο από τα τρία είναι το θέμα; (αύξηση – θέμα – κατάληξη)";
+
+      const parts = [
+        { label: item.augmentation, key: "aug" },
+        { label: item.stem, key: "stem" },
+        { label: item.ending, key: "end" },
+      ];
+
+      const shuffled = shuffleArray(parts);
+      choicesEl.innerHTML = "";
+      shuffled.forEach((part) => {
+        const btn = document.createElement("button");
+        btn.className = "btn segment";
+        btn.textContent = part.label;
+        btn.dataset.key = part.key;
+        btn.addEventListener("click", () => handleGame1Choice(part.key));
+        choicesEl.appendChild(btn);
+      });
+    }
+
+    function handleGame1Choice(key) {
+      const feedbackEl = document.getElementById("game1-feedback");
+      game1Total += 1;
+
+      if (key === "stem") {
+        game1Score += 1;
+        feedbackEl.textContent =
+          "✅ Σωστά! Αυτό είναι το θέμα του ρήματος.";
+      } else if (key === "aug") {
+        feedbackEl.textContent =
+          "ℹ️ Αυτό είναι η αύξηση. Δοκίμασε ξανά ή πάτησε «Επόμενη λέξη».";
+      } else {
+        feedbackEl.textContent =
+          "ℹ️ Αυτή είναι η κατάληξη. Το θέμα είναι το κομμάτι ανάμεσα στην αύξηση και την κατάληξη.";
+      }
+
+      updateGame1Score();
+    }
+
+    // ΠΑΙΧΝΙΔΙ 2 – Ταίριαξε τα ζευγάρια
+    const game2Pairs = [
+      { id: 1, present: "λαμβάνω", aorist: "ἔλαβον" },
+      { id: 2, present: "τρέχω", aorist: "ἔδραμον" },
+      { id: 3, present: "λέγω", aorist: "εἶπον" },
+      { id: 4, present: "ὁράω", aorist: "εἶδον" },
+      { id: 5, present: "τυγχάνω", aorist: "ἔτυχον" },
+      { id: 6, present: "βάλλω", aorist: "ἔβαλον" },
+      { id: 7, present: "πίπτω", aorist: "ἔπεσον" },
+      { id: 8, present: "λανθάνω", aorist: "ἔλαθον" },
+    ];
+
+    let game2SelectedPresent = null;
+    let game2SelectedAorist = null;
+    let game2Score = 0;
+    let game2Total = game2Pairs.length;
+    const game2Feedback = document.getElementById("game2-feedback");
+    const game2ScoreEl = document.getElementById("game2-score");
+
+    function initGame2() {
+      const left = document.getElementById("game2-left");
+      const right = document.getElementById("game2-right");
+      left.innerHTML = "";
+      right.innerHTML = "";
+
+      game2SelectedPresent = null;
+      game2SelectedAorist = null;
+      game2Score = 0;
+      game2Total = game2Pairs.length;
+      game2Feedback.textContent =
+        "1️⃣ Πάτησε έναν τύπο στον ενεστώτα, 2️⃣ διάλεξε τον αντίστοιχο αόριστο β΄.";
+      updateGame2Score();
+
+      const presentOrder = shuffleArray(game2Pairs.map((p) => p.id));
+      const aoristOrder = shuffleArray(game2Pairs.map((p) => p.id));
+
+      presentOrder.forEach((id) => {
+        const pair = game2Pairs.find((p) => p.id === id);
+        const btn = document.createElement("button");
+        btn.className = "game2-btn present";
+        btn.textContent = pair.present;
+        btn.dataset.id = pair.id;
+        btn.addEventListener("click", () => selectGame2Present(btn));
+        left.appendChild(btn);
+      });
+
+      aoristOrder.forEach((id) => {
+        const pair = game2Pairs.find((p) => p.id === id);
+        const btn = document.createElement("button");
+        btn.className = "game2-btn aorist";
+        btn.textContent = pair.aorist;
+        btn.dataset.id = pair.id;
+        btn.addEventListener("click", () => selectGame2Aorist(btn));
+        right.appendChild(btn);
+      });
+    }
+
+    function updateGame2Score() {
+      game2ScoreEl.textContent = `Σωστά ζευγάρια: ${game2Score} / ${game2Total}`;
+    }
+
+    function selectGame2Present(btn) {
+      if (btn.classList.contains("matched")) return;
+
+      document
+        .querySelectorAll(".game2-btn.present")
+        .forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      game2SelectedPresent = btn;
+      if (game2SelectedAorist) {
+        checkGame2Match();
+      } else {
+        game2Feedback.textContent =
+          "Τώρα διάλεξε τον σωστό τύπο αορίστου β΄ στη δεξιά στήλη.";
+      }
+    }
+
+    function selectGame2Aorist(btn) {
+      if (btn.classList.contains("matched")) return;
+
+      document
+        .querySelectorAll(".game2-btn.aorist")
+        .forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      game2SelectedAorist = btn;
+      if (game2SelectedPresent) {
+        checkGame2Match();
+      } else {
+        game2Feedback.textContent =
+          "Πρώτα διάλεξε έναν τύπο στον ενεστώτα από αριστερά.";
+      }
+    }
+
+    function checkGame2Match() {
+      const idP = game2SelectedPresent.dataset.id;
+      const idA = game2SelectedAorist.dataset.id;
+
+      if (idP === idA) {
+        game2Score += 1;
+        game2Feedback.textContent =
+          "✅ Σωστό ζευγάρι! Συνέχισε με τα υπόλοιπα.";
+        game2SelectedPresent.classList.add("matched");
+        game2SelectedAorist.classList.add("matched");
+        game2SelectedPresent.classList.remove("selected");
+        game2SelectedAorist.classList.remove("selected");
+        game2SelectedPresent.disabled = true;
+        game2SelectedAorist.disabled = true;
+      } else {
+        game2Feedback.textContent =
+          "❌ Δεν ταιριάζουν. Ξαναπροσπάθησε με άλλο ζευγάρι.";
+        game2SelectedPresent.classList.remove("selected");
+        game2SelectedAorist.classList.remove("selected");
+      }
+
+      game2SelectedPresent = null;
+      game2SelectedAorist = null;
+      updateGame2Score();
+
+      if (game2Score === game2Total) {
+        game2Feedback.textContent =
+          "🎉 Ταίριαξες όλα τα ζευγάρια! Μπορείς να ξεκινήσεις νέο παιχνίδι.";
+      }
+    }
+
+    // ΠΑΙΧΝΙΔΙ 3 – Ρήματα σε κείμενο
+    const game3Sentences = [
+      {
+        text: "ὁ στρατηγὸς τοὺς πολεμίους <span class='game3-blank'>&nbsp;</span> ἐν τῇ μάχῃ. (βάλλω)",
+        options: ["ἔβαλεν", "ἔλαβεν", "ἔτυχεν"],
+        correct: 0,
+        explanation: "Αόριστος β΄ του ρήματος «βάλλω» είναι «ἔβαλον / ἔβαλεν»."
+      },
+      {
+        text: "ὁ νεανίας τὸ βιβλίον <span class='game3-blank'>&nbsp;</span> εἰς τὰς χεῖρας. (λαμβάνω)",
+        options: ["ἔλαβεν", "εἶδεν", "ἔδραμεν"],
+        correct: 0,
+        explanation: "Αόριστος β΄ του «λαμβάνω» είναι «ἔλαβον / ἔλαβεν»."
+      },
+      {
+        text: "ὁ δρομεὺς εἰς τὴν πόλιν <span class='game3-blank'>&nbsp;</span> τάχεως. (τρέχω)",
+        options: ["ἔδραμεν", "ἔβαλεν", "εἶπεν"],
+        correct: 0,
+        explanation: "Αόριστος β΄ του «τρέχω» είναι «ἔδραμον / ἔδραμεν»."
+      },
+      {
+        text: "ὁ μαθητὴς τὸν διδάσκαλον <span class='game3-blank'>&nbsp;</span> ἐν τῇ ἀγορᾷ. (ὁράω)",
+        options: ["εἶδεν", "ἔλαβεν", "ἔτυχεν"],
+        correct: 0,
+        explanation: "Αόριστος β΄ του «ὁράω» είναι «εἶδον / εἶδεν»."
+      },
+      {
+        text: "ὁ νεανίας τῆς νίκης <span class='game3-blank'>&nbsp;</span> ἐν τῷ ἀγῶνι. (τυγχάνω)",
+        options: ["ἔτυχεν", "ἔδραμεν", "εἶπεν"],
+        correct: 0,
+        explanation: "Αόριστος β΄ του «τυγχάνω» είναι «ἔτυχον / ἔτυχεν»."
+      },
+    ];
+
+    let game3Index = 0;
+    let game3Score = 0;
+    let game3Total = 0;
+    let game3Answered = false;
+
+    const game3SentenceEl = document.getElementById("game3-sentence");
+    const game3OptionsEl = document.getElementById("game3-options");
+    const game3FeedbackEl = document.getElementById("game3-feedback");
+    const game3ScoreEl = document.getElementById("game3-score");
+
+    function initGame3() {
+      game3Index = 0;
+      game3Score = 0;
+      game3Total = 0;
+      game3Answered = false;
+      game3FeedbackEl.textContent =
+        "Πάτησε σε μία από τις επιλογές.";
+      updateGame3Score();
+      loadGame3Question();
+    }
+
+    function loadGame3Question() {
+      if (game3Index >= game3Sentences.length) {
+        game3Index = 0;
+      }
+      const q = game3Sentences[game3Index];
+      game3SentenceEl.innerHTML = q.text;
+      game3OptionsEl.innerHTML = "";
+      game3Answered = false;
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "btn choice";
+        btn.textContent = opt;
+        btn.addEventListener("click", () => handleGame3Choice(idx));
+        game3OptionsEl.appendChild(btn);
+      });
+
+      game3FeedbackEl.textContent =
+        "Διάλεξε τον σωστό τύπο για να συμπληρώσεις την πρόταση.";
+    }
+
+    function handleGame3Choice(index) {
+      if (game3Answered) return;
+      const q = game3Sentences[game3Index];
+      const buttons = game3OptionsEl.querySelectorAll("button");
+      game3Answered = true;
+      game3Total += 1;
+
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.correct) {
+          btn.style.background = "#d0ffd6";
+        }
+        if (idx === index && idx !== q.correct) {
+          btn.style.background = "#ffd6d6";
+        }
+      });
+
+      if (index === q.correct) {
+        game3Score += 1;
+        game3FeedbackEl.textContent =
+          "✅ Σωστά! " + q.explanation;
+      } else {
+        game3FeedbackEl.textContent =
+          "❌ Λάθος. " + q.explanation;
+      }
+
+      updateGame3Score();
+    }
+
+    function updateGame3Score() {
+      game3ScoreEl.textContent = `Σωστές απαντήσεις: ${game3Score} / ${game3Total}`;
+    }
+
+    function nextGame3Question() {
+      game3Index += 1;
+      loadGame3Question();
+    }
+
+    // Τελικό Κουίζ – Μάχη ομάδων (40 ερωτήσεις)
+    const quizQuestions = [
+      {
+        text: "Ποιος από τους παρακάτω τύπους είναι αόριστος β΄ στα Αρχαία Ελληνικά;",
+        options: ["ἔγραψα", "ἔπαιξα", "ἔβαλον"],
+        correct: 2,
+        explanation: "«ἔβαλον» είναι αόριστος β΄ του ρήματος «βάλλω»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «λαμβάνω»;",
+        options: ["ἔλαβον", "ἔλαβα", "ἐλάμβανα"],
+        correct: 0,
+        explanation: "Ο σωστός αόριστος β΄ είναι «ἔλαβον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «τρέχω»;",
+        options: ["ἔτρεξα", "ἔδραμον", "ἔδραμα"],
+        correct: 1,
+        explanation: "Ο αόριστος β΄ του «τρέχω» είναι «ἔδραμον»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄);",
+        options: ["λείπω → ἔλιπον", "λείπω → ἔλειψα", "λείπω → ἔλειπον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «λείπω» είναι «ἔλιπον»."
+      },
+      {
+        text: "Ποιος από τους παρακάτω τύπους ΔΕΝ είναι αόριστος β΄;",
+        options: ["ἔδραμον", "ἔβαλον", "ἔγραψα"],
+        correct: 2,
+        explanation: "«ἔγραψα» είναι αόριστος α΄ (με κατάληξη -σα)."
+      },
+      {
+        text: "Ποιος είναι ο σωστός αόριστος β΄ του ρήματος «λέγω»;",
+        options: ["εἶπον", "ἔλεξα", "ἔλεξον"],
+        correct: 0,
+        explanation: "Αόριστος β΄ του «λέγω» είναι «εἶπον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «ὁράω»;",
+        options: ["εἶδον", "εἶδα", "ἑόρακα"],
+        correct: 0,
+        explanation: "Αόριστος β΄ του «ὁράω» είναι «εἶδον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «τυγχάνω»;",
+        options: ["ἔτυχον", "ἐτύχησα", "ἐτύγχανον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «τυγχάνω» είναι «ἔτυχον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «πίπτω»;",
+        options: ["ἔπεσον", "ἔπεσα", "ἔπιπτον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «πίπτω» είναι «ἔπεσον»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄);",
+        options: ["βάλλω → ἔβαλον", "βάλλω → ἔβαλα", "βάλλω → ἔβαλλον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «βάλλω» είναι «ἔβαλον»."
+      },
+      {
+        text: "Ποιος είναι ένας τύπος του αορίστου β΄ του «λανθάνω»;",
+        options: ["ἔλαθον", "ἐλανθάνησα", "ἐλανθάνον"],
+        correct: 0,
+        explanation: "Ένας τύπος του αορίστου β΄ του «λανθάνω» είναι «ἔλαθον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «ἔρχομαι»;",
+        options: ["ἦλθον", "ἤλθα", "ἔρχον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «ἔρχομαι» είναι «ἦλθον»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄);",
+        options: ["φέρω → ἤνεγκον", "φέρω → ἔφερα", "φέρω → ἔφερνα"],
+        correct: 0,
+        explanation: "Ένας αόριστος β΄ του «φέρω» είναι «ἤνεγκον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «πίνω»;",
+        options: ["ἔπιον", "ἔπινα", "ἔπιοσα"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «πίνω» είναι «ἔπιον»."
+      },
+      {
+        text: "Ποιος από τους παρακάτω τύπους είναι αόριστος β΄;",
+        options: ["ἔλιπον", "ἔλειψα", "ἐλείπω"],
+        correct: 0,
+        explanation: "«ἔλιπον» είναι αόριστος β΄ του «λείπω»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄ μέσης φωνής);",
+        options: ["γίγνομαι → ἐγενόμην", "γίγνομαι → ἐγένεσα", "γίγνομαι → ἐγίγνον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ (μέσος) του «γίγνομαι» είναι «ἐγενόμην»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «τίκτω»;",
+        options: ["ἔτεκον", "ἔτικσα", "ἔτεξα"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «τίκτω» είναι «ἔτεκον»."
+      },
+      {
+        text: "Ποιος από τους παρακάτω τύπους ΔΕΝ είναι αόριστος β΄;",
+        options: ["ἔπεσον", "ἔλαβον", "ἔγραψα"],
+        correct: 2,
+        explanation: "«ἔγραψα» είναι αόριστος α΄, όχι αόριστος β΄."
+      },
+      {
+        text: "Ποιο ζευγάρι δείχνει σωστά τη σχέση Νέων Ελληνικών / Αρχαίων Ελληνικών;",
+        options: [
+          "είπα — εἶπον",
+          "πήγα — ἔδραμον",
+          "έφαγα — ἔλαβον"
+        ],
+        correct: 0,
+        explanation: "Στα Νέα Ελληνικά «είπα» αντιστοιχεί στο «εἶπον» των Αρχαίων Ελληνικών."
+      },
+      {
+        text: "Ποια σχέση Νέων Ελληνικών / Αρχαίων Ελληνικών είναι σωστή;",
+        options: [
+          "πήρα — ἔλαβον",
+          "έτρεξα — εἶδον",
+          "είδα — ἔδραμον"
+        ],
+        correct: 0,
+        explanation: "Στα Νέα Ελληνικά «πήρα» αντιστοιχεί στο «ἔλαβον» των Αρχαίων Ελληνικών."
+      },
+
+      // Ερωτήσεις 21–40
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «ἄγω»;",
+        options: ["ἤγαγον", "ἤγαγα", "ἤγαγοντο"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «ἄγω» είναι «ἤγαγον»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄);",
+        options: [
+          "αἱρῶ → εἷλον",
+          "αἱρῶ → ᾕρεσα",
+          "αἱρῶ → ἥρουν"
+        ],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «αἱρῶ» είναι «εἷλον»."
+      },
+      {
+        text: "Ποιος είναι ο σωστός τύπος αορίστου β΄ (οριστική, 1ο ενικό) του «αἰσθάνομαι»;",
+        options: ["ἠσθόμην", "ἤσθομαι", "ᾐσθανόμην"],
+        correct: 0,
+        explanation: "Στον πίνακα ο τύπος δίνεται ως «ἠσθόμην»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄);",
+        options: [
+          "ἁμαρτάνω → ἥμαρτον",
+          "ἁμαρτάνω → ἥμαρσα",
+          "ἁμαρτάνω → ἡμάρτησα"
+        ],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «ἁμαρτάνω» είναι «ἥμαρτον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «ἀποθνῄσκω»;",
+        options: ["ἀπέθανον", "ἀπέθανα", "ἀπέθνησκον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «ἀποθνῄσκω» είναι «ἀπέθανον»."
+      },
+      {
+        text: "Ποιο ζευγάρι Νέων Ελληνικών / Αρχαίων Ελληνικών είναι σωστό;",
+        options: [
+          "πεθαίνω → ἀπέθανον",
+          "πεθαίνω → ἔθανον",
+          "πεθαίνω → ἔθανε"
+        ],
+        correct: 0,
+        explanation: "Στα Νέα Ελληνικά «πεθαίνω → πέθανα» αντιστοιχεί στο «ἀπέθανον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «ἐσθίω»;",
+        options: ["ἔφαγον", "ἔφαγα", "ἔεσθον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «ἐσθίω» είναι «ἔφαγον»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄);",
+        options: [
+          "εὑρίσκω → εὗρον (ηὗρον)",
+          "εὑρίσκω → ηὗρα",
+          "εὑρίσκω → εὗρα"
+        ],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «εὑρίσκω» είναι «εὗρον» (ή «ηὗρον»)."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «ἔχω»;",
+        options: ["ἔσχον", "ἔσχησα", "ἔσχοντο"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «ἔχω» είναι «ἔσχον»."
+      },
+      {
+        text: "Ποιος αόριστος β΄ αντιστοιχεί στο ρήμα «τρέχω / θέω»;",
+        options: ["ἔδραμον", "ἔτρεψα", "ἔθουν"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ είναι «ἔδραμον»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄);",
+        options: [
+          "κτείνω → ἔκτανον",
+          "κτείνω → ἔκτεινα",
+          "κτείνω → ἔκτεινον"
+        ],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «κτείνω» είναι «ἔκτανον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «λαγχάνω»;",
+        options: ["ἔλαχον", "ἔλαχα", "ἔλαγχα"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «λαγχάνω» είναι «ἔλαχον»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄);",
+        options: [
+          "λανθάνω → ἔλαθον",
+          "λανθάνω → ἔλαθα",
+          "λανθάνω → ἔλαθαν"
+        ],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «λανθάνω» είναι «ἔλαθον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «μανθάνω»;",
+        options: ["ἔμαθον", "ἔμαθα", "ἐμάνθανον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «μανθάνω» είναι «ἔμαθον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «πάσχω»;",
+        options: ["ἔπαθον", "ἔπαθα", "ἐπάσχον"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «πάσχω» είναι «ἔπαθον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «πείθω»;",
+        options: ["ἔπιθον", "ἔπεισα", "ἔπιθω"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «πείθω» είναι «ἔπιθον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «πυνθάνομαι» (1ο ενικό οριστικής);",
+        options: ["ἐπυθόμην", "ἔπυθον", "ἐπυνθανόμην"],
+        correct: 0,
+        explanation: "Ο τύπος είναι «ἐπυθόμην»."
+      },
+      {
+        text: "Ποιο ζευγάρι είναι σωστό (ενεστώτας → αόριστος β΄);",
+        options: [
+          "φεύγω → ἔφυγον",
+          "φεύγω → ἔφυγα",
+          "φεύγω → ἔφευγον"
+        ],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «φεύγω» είναι «ἔφυγον»."
+      },
+      {
+        text: "Ποιος είναι ο αόριστος β΄ του ρήματος «ὁρῶ»;",
+        options: ["εἶδον", "ὥρασα", "ὡρῶσα"],
+        correct: 0,
+        explanation: "Ο αόριστος β΄ του «ὁρῶ» είναι «εἶδον»."
+      },
+      {
+        text: "Ποια σχέση Νέων Ελληνικών / Αρχαίων Ελληνικών είναι σωστή;",
+        options: [
+          "βλέπω → εἶδον",
+          "φεύγω → ἔδραμον",
+          "πίνω → ἔλαβον"
+        ],
+        correct: 0,
+        explanation: "Στα Νέα Ελληνικά «βλέπω → είδα» αντιστοιχεί στο «εἶδον» των Αρχαίων Ελληνικών."
+      },
+    ];
+
+    let quizIndex = 0;
+    let quizScore = 0;
+    let quizTotal = 0;
+    let quizAnswered = false;
+
+    const quizQuestionEl = document.getElementById("quiz-question");
+    const quizOptionsEl = document.getElementById("quiz-options");
+    const quizFeedbackEl = document.getElementById("quiz-feedback");
+    const quizScoreEl = document.getElementById("quiz-score");
+
+    const teamLabels = ["Ομάδα Α", "Ομάδα Β", "Ομάδα Γ", "Ομάδα Δ"];
+    let teamScores = [0, 0, 0, 0];
+
+    const teamAScoreEl = document.getElementById("teamA-score");
+    const teamBScoreEl = document.getElementById("teamB-score");
+    const teamCScoreEl = document.getElementById("teamC-score");
+    const teamDScoreEl = document.getElementById("teamD-score");
+    const currentTeamLabelEl = document.getElementById("current-team-label");
+
+    function updateTeamScores() {
+      teamAScoreEl.textContent = `Ομάδα Α: ${teamScores[0]} σωστές`;
+      teamBScoreEl.textContent = `Ομάδα Β: ${teamScores[1]} σωστές`;
+      teamCScoreEl.textContent = `Ομάδα Γ: ${teamScores[2]} σωστές`;
+      teamDScoreEl.textContent = `Ομάδα Δ: ${teamScores[3]} σωστές`;
+    }
+
+    function updateCurrentTeamLabel() {
+      const teamIndex = quizIndex % 4;
+      currentTeamLabelEl.textContent = teamLabels[teamIndex];
+    }
+
+    function initQuiz() {
+      quizIndex = 0;
+      quizScore = 0;
+      quizTotal = 0;
+      quizAnswered = false;
+      teamScores = [0, 0, 0, 0];
+      quizFeedbackEl.textContent =
+        "Κοίτα ποια ομάδα παίζει και πάτησε σε μια επιλογή.";
+      updateTeamScores();
+      updateQuizScore();
+      loadQuizQuestion();
+    }
+
+    function loadQuizQuestion() {
+      if (quizIndex >= quizQuestions.length) {
+        quizIndex = 0;
+      }
+      const q = quizQuestions[quizIndex];
+      quizQuestionEl.textContent = `Ερώτηση ${quizIndex + 1} από ${quizQuestions.length}: ${q.text}`;
+      quizOptionsEl.innerHTML = "";
+      quizAnswered = false;
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "btn quiz-option";
+        btn.innerHTML = `<span>${String.fromCharCode(945 + idx)})</span> <span>${opt}</span>`;
+        btn.addEventListener("click", () => handleQuizChoice(idx));
+        quizOptionsEl.appendChild(btn);
+      });
+
+      updateCurrentTeamLabel();
+    }
+
+    function handleQuizChoice(index) {
+      if (quizAnswered) return;
+      const q = quizQuestions[quizIndex];
+      const buttons = quizOptionsEl.querySelectorAll("button");
+      quizAnswered = true;
+      quizTotal += 1;
+
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.correct) {
+          btn.classList.add("correct");
+        }
+        if (idx === index && idx !== q.correct) {
+          btn.classList.add("wrong");
+        }
+      });
+
+      const teamIndex = quizIndex % 4;
+      const teamName = teamLabels[teamIndex];
+
+      if (index === q.correct) {
+        quizScore += 1;
+        teamScores[teamIndex] += 1;
+        quizFeedbackEl.textContent =
+          "✅ Σωστά! " + q.explanation + ` (Πόντος στην ${teamName}.)`;
+      } else {
+        quizFeedbackEl.textContent =
+          "❌ Λάθος. " + q.explanation + " (Η ερώτηση δεν δίνει πόντους.)";
+      }
+
+      updateQuizScore();
+      updateTeamScores();
+    }
+
+    function updateQuizScore() {
+      quizScoreEl.textContent = `Σωστές απαντήσεις συνολικά: ${quizScore} / ${quizTotal}`;
+    }
+
+    function nextQuizQuestion() {
+      quizIndex += 1;
+      loadQuizQuestion();
+    }
+  </script>
+</body>
+</html>
